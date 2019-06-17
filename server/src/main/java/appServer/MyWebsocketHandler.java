@@ -20,7 +20,7 @@ public class MyWebsocketHandler extends SimpleChannelInboundHandler<TextWebSocke
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) throws Exception {
-        System.out.println("收到消息:"+msg.text());
+        System.out.println("收到展示模块消息:"+msg.text());
         ctx.channel().writeAndFlush(new TextWebSocketFrame("服务器时间:"+ LocalDateTime.now()));
     }
     @Override
@@ -28,7 +28,6 @@ public class MyWebsocketHandler extends SimpleChannelInboundHandler<TextWebSocke
         channelGroup.add(ctx.channel());
         System.out.println(ctx.channel().remoteAddress()+"加入");
     }
-
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
         System.out.println(ctx.channel().remoteAddress()+"移除");

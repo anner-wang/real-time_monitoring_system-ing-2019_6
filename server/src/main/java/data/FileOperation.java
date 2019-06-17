@@ -16,9 +16,9 @@ public class FileOperation {
             bufferedWriter.write("\n");
             bufferedWriter.flush();
             bufferedWriter.close();
-            System.out.print("传感器数据:");
-            for (String str:data) System.out.print(str+"\t");
-            System.out.println();
+//            System.out.print("传感器数据:");
+//            for (String str:data) System.out.print(str+"\t");
+//            System.out.println("添加到文件成功");
         }catch (IOException e){
             System.out.println("文件读取错误");
         }
