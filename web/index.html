@@ -19,7 +19,6 @@
 <link href="css/jquery.bxslider.css" rel="stylesheet" />
 
 
-
 <!-- LayerSlider stylesheet -->
 <link rel="stylesheet" href="layerslider/css/layerslider.css" type="text/css">
 <!-- External libraries: jQuery & GreenSock -->
@@ -31,6 +30,8 @@
 
 <script src="js/bootstrap.min.js" type="text/javascript"></script>
 
+<!--	连接服务器的js脚本-->
+	<script type="text/javascript" src="js/load.js"></script>
 
 <!-- bxSlider Javascript file -->
 <script src="js/jquery.bxslider.js"></script>
@@ -106,14 +107,25 @@ $(document).ready(function() {
 										$(this).toggleClass("minus");
 										
 										});
-			
-			
-
 		});
 
 }
 </script>
-					
+	<!--	建立websocket请求并且获取传感器数据-->
+	<script type="text/javascript">
+		var socket;
+		if (window.WebSocket){
+			socket=new WebSocket("ws://localhost:9988/ws");
+			console.log("服务器连接成功");
+			socket.onmessage=function (event) {
+				var ta=document.getElementById("sensor");
+				ta.value=event.data;
+			}
+		}else{
+			alert("浏览器不支持websocket")
+		}
+	</script>
+
 </head>
 
 <body>
@@ -129,8 +141,8 @@ $(document).ready(function() {
 			<div class="title">Menu <span class="fa "></span></div>
 			<ul>
                 <li><a href="#rtmp">直播</a></li>
-			<li><a href="#faqs_part">传感器数据展示</a></li>
-			<li><a href="#features">远程步进电机控制</a></li>
+			<li><a href="#features">传感器数据展示</a></li>
+			<li><a href="#faqs_part">远程步进电机控制</a></li>
 			<li><a href="#testimonials_part">远程LED控制 </a></li>
 			<li><a href="#pricing_part">远程视频控制</a></li>
 			<li><a href="#contact_part">联系作者</a></li>
@@ -170,7 +182,7 @@ $(document).ready(function() {
 
 
 						<div class="ls-l" style="top:265px;left:640px;" data-ls="offsetxin:0;delayin:1000;easingin:easeInOutQuart;scalexin:0.7;scaleyin:0.7;offsetxout:-800;durationout:1000;">
-						<a href="https://github.com/anner-wang/home-_real-time_monitoring_system-ing-2019_6" class="button2">查看源码</a>
+						<a href="https://github.com/anner-wang/real-time_monitoring_system-ing-2019_6" class="button2">查看源码</a>
 						</div>
 
 
@@ -221,33 +233,11 @@ $(document).ready(function() {
 
 <div class="feature_section" id="features">
 <div class="container">
-
-				
-				<div class="leftside">
-				<img src="images/thumbs/t1.png" alt=""  class="wow bounceInLeft animated" data-wow-duration="2s" data-wow-offset="300" data-wow-delay="0.2s" />
-				</div>
-				
-				
-				<div class="rightside">
-				<h2>Explore the awesomeness</h2>
-				<p>
-				Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really. The concentration is warm and intimate and like the fire inside the earth - intense but not distorted. You can go to a place, really feel it in your heart. It's actually a beautiful feeling.
-				</p>
-				
-				<div class="feature">
-				<span class="fa fa-life-ring"></span>
-				<div class="description">
-				<strong>Good in Performance</strong> <br />
-				Designing is a matter of concentration. You go deep into what you want to do. It's about intensive research, really.
-				</div>
-				</div>
-				
-				<br clear="all" />
-				
-				<a href="#" class="button3">Learn More</a>
-				<a href="#" class="button4">Start Now</a>
-				</div>			
-
+<!--	展示实时的传感器数据-->
+	<form onsubmit="return false">
+		<h5>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp传感器实时数据</h5>
+		<textarea rows="15" cols="31" id="sensor"  ></textarea>
+	</form>
 </div>
 </div>
 
@@ -290,6 +280,7 @@ $(document).ready(function() {
 
 </div>
 </div>
+
 
 
 
